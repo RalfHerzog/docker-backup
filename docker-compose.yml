@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  backup:
+    build: .
+    image: 'ralfherzog/docker-backup'
+    environment:
+    - BACKUP_TRIGGER=my_trigger
+    # See http://backup.github.io/backup/v4/notifier-mail/
+    - BACKUP_MAIL_ENABLED=false
+    - BACKUP_MAIL_FROM=backup@example.com
+    - BACKUP_MAIL_TO=admin@example.com
+    - BACKUP_MAIL_ADDRESS=mail.example.com
+    - BACKUP_MAIL_PORT=25
+    - BACKUP_MAIL_DOMAIN=mail.example.com
+    - BACKUP_MAIL_USER_NAME=backup@example.com
+    - BACKUP_MAIL_PASSWORD=MyMailPassword
+    - BACKUP_MAIL_AUTHENTICATION=login
+    - BACKUP_MAIL_ENCRYPTION=starttls
+    volumes:
+    - "/home/user/Backup:/root/Backup" # The backup configuration will be used from here
+    - "/home/user/backups:/root/backups" # The backup will be stored here
+    - "/home/user/data:/root/data" # The data to backup
